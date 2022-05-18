@@ -90,7 +90,7 @@ function hasil_103_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 data = xlsread('Home.xlsx', 'C2:F51');
 k = [0 0 1 1]
-bobot = xlsread('Home.xlsx','H2:H5');
+bobot = [1 2 3 4]
 disp(data)
 disp(bobot)
 
