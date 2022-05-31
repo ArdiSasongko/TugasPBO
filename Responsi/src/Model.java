@@ -58,25 +58,39 @@ public class Model {
         int jmlData=0;
         try {
             String query;
-            query = "Select * from aslab WHERE judul=" + judul; // cek apakah data sudah ada
-            System.out.println(judul + " " + portofolio + " " + microteaching + " " + wawancara);
+            query = "Select * from aslab WHERE judul=" + judul;
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()){
                 jmlData++;
             }
 
-            if (jmlData==0) { // jika data dengan no hp tsb belum ada
-                query = "INSERT INTO aslab VALUES('"+judul+"','"+portofolio+"','"+microteaching+"','"+wawancara+"','"+akhir+"')";
+            if (jmlData==0) {
+                int por = Integer.parseInt(portofolio);
+                int mic = Integer.parseInt(microteaching);
+                int wawa = Integer.parseInt(wawancara);
+                if(por  >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai Portofolio besar dari 100");
+                }
+                else if(mic >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai microteaching besar dari 100");
 
-                statement = (Statement) koneksi.createStatement();
-                statement.executeUpdate(query); //execute querynya
-                System.out.println("Berhasil ditambahkan");
-                JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+                }
+                else if(wawa >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai wawancara besar dari 100");
+                }
+                else{
+                    query = "INSERT INTO aslab VALUES('"+judul+"','"+portofolio+"','"+microteaching+"','"+wawancara+"','"+akhir+"')";
+                    statement = (Statement) koneksi.createStatement();
+                    statement.executeUpdate(query); //execute querynya
+                    System.out.println("Berhasil ditambahkan");
+                    JOptionPane.showMessageDialog(null, "Data Berhasil ditambahkan");
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "Data sudah ada");
             }
+
         } catch (Exception sql) {
             System.out.println(sql.getMessage());
             JOptionPane.showMessageDialog(null, sql.getMessage());
@@ -93,12 +107,27 @@ public class Model {
                 jmlData++;
             }
 
-            if (jmlData==1) { // karena no hp merupakan unique value, maka dapat dipastikan hanya ada satu jika ada
-                query = "UPDATE aslab SET judul='" + judul + "', portofolio='" + portofolio + "', microteaching='" + microteaching + "',wawancara ='" + wawancara + "' WHERE judul=" + judul;
-                statement = (Statement) koneksi.createStatement();
-                statement.executeUpdate(query); //execute querynya
-                System.out.println("Berhasil diupdate");
-                JOptionPane.showMessageDialog(null, "Data Berhasil diupdate");
+            if (jmlData==1) {
+                int por = Integer.parseInt(portofolio);
+                int mic = Integer.parseInt(microteaching);
+                int wawa = Integer.parseInt(wawancara);
+                if(por  >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai Portofolio besar dari 100");
+                }
+                else if(mic >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai microteaching besar dari 100");
+
+                }
+                else if(wawa >= 100){
+                    JOptionPane.showMessageDialog(null, "Data nilai wawancara besar dari 100");
+                }
+                else {
+                    query = "UPDATE aslab SET judul='" + judul + "', portofolio='" + portofolio + "', microteaching='" + microteaching + "',wawancara ='" + wawancara + "' WHERE judul=" + judul;
+                    statement = (Statement) koneksi.createStatement();
+                    statement.executeUpdate(query); //execute querynya
+                    System.out.println("Berhasil diupdate");
+                    JOptionPane.showMessageDialog(null, "Data Berhasil diupdate");
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "Data Tidak Ada");
